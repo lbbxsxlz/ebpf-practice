@@ -9,3 +9,7 @@ echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) mai
 sudo apt-get update
 sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
 
+# ref
+[ebpf-and-k8s-zh](http://arthurchiao.art/blog/ebpf-and-k8s-zh/)
+[ebpf_website](https://www.ebpf.top)
+
