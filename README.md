@@ -13,3 +13,5 @@ sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
 [ebpf-and-k8s-zh](http://arthurchiao.art/blog/ebpf-and-k8s-zh/)
 [ebpf_website](https://www.ebpf.top)
 
+[高效入门eBPF](https://www.bilibili.com/video/BV1LX4y157Gp/)
+[BPF C编程入门](https://www.bilibili.com/video/BV1f54y1h74r/)
