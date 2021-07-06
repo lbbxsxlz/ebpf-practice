@@ -15,8 +15,12 @@ sudo /usr/share/bcc/tools/tcplife
 sudo /usr/share/bcc/tools/tcptracer 
 
 # ref
-[ebpf-and-k8s-zh](http://arthurchiao.art/blog/ebpf-and-k8s-zh/)
-[ebpf_website](https://www.ebpf.top)
-
+## video
 [高效入门eBPF](https://www.bilibili.com/video/BV1LX4y157Gp/)
 [BPF C编程入门](https://www.bilibili.com/video/BV1f54y1h74r/)
+[透过ebpf观察进程行为](https://www.bilibili.com/video/BV1Bt411S7tg?from=search&seid=13293646945432916857)
+## blog
+[ebpf_website](https://www.ebpf.top)
+[ebpf_blog](https://davidlovezoe.club/wordpress/archives/tag/bpf)
+
+[ebpf-and-k8s-zh](http://arthurchiao.art/blog/ebpf-and-k8s-zh/)
