@@ -24,3 +24,9 @@ sudo /usr/share/bcc/tools/tcptracer
 [ebpf_blog](https://davidlovezoe.club/wordpress/archives/tag/bpf)
 
 [ebpf-and-k8s-zh](http://arthurchiao.art/blog/ebpf-and-k8s-zh/)
+[understanding-ebpf-datapath-in-cilium-zh](http://arthurchiao.art/blog/understanding-ebpf-datapath-in-cilium-zh/)
+[how-to-make-linux-microservice-aware-with-cilium-ebpf](https://github.com/DavadDi/bpf_study/blob/master/how-to-make-linux-microservice-aware-with-cilium-ebpf/index.md)
+
+## website
+[official-site](https://ebpf.io)
+[ebpf_tracing_tools](http://www.brendangregg.com/ebpf.html)
