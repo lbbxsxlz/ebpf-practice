@@ -14,6 +14,23 @@ sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
 sudo /usr/share/bcc/tools/tcplife
 sudo /usr/share/bcc/tools/tcptracer 
 
+# how to make bpf bytecode in C
+
+## bcc
+
+## libbpf-bootstrap
+
+## kernel code  sample/bpf
+make M=sample/bpf/
+
+### hello
+在Makefile中添加
+hostprogs-y += hello
+hello-objs := bpf_load.o hello_user.o
+always += hello_kern.o
+
+make M=sample/bpf/
+
 # ref
 ## video
 [高效入门eBPF](https://www.bilibili.com/video/BV1LX4y157Gp/)
