@@ -19,11 +19,15 @@ sudo /usr/share/bcc/tools/tcptracer
 ## bcc
 
 ## libbpf-bootstrap
+[sourcecode](https://github.com/libbpf/libbpf-bootstrap)
+
 
 ## kernel code  sample/bpf
+### install denpend libs
+
 make M=sample/bpf/
 
-### hello
+### hello bpf
 在Makefile中添加
 hostprogs-y += hello
 hello-objs := bpf_load.o hello_user.o
@@ -31,7 +35,7 @@ always += hello_kern.o
 
 make M=sample/bpf/
 
-# ref
+# reference
 ## video
 [高效入门eBPF](https://www.bilibili.com/video/BV1LX4y157Gp/)
 [BPF C编程入门](https://www.bilibili.com/video/BV1f54y1h74r/)
@@ -47,3 +51,4 @@ make M=sample/bpf/
 ## website
 [official-site](https://ebpf.io)
 [ebpf_tracing_tools](http://www.brendangregg.com/ebpf.html)
+
