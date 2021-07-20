@@ -35,13 +35,14 @@ hello-objs := bpf_load.o hello_user.o
 always += hello_kern.o
 ```
 编译：
-make M=sample/bpf/
+sudo make M=sample/bpf/
 
 ### use clang compile 
 clang一次性编译
 ```
 sudo clang -O2 -Wall -target bpf -c hello_kern.c -o hello_kern.o
 ```
+clang，llvm前端生成.ll文件，然后llvm后端把.ll文件生成bpf字节码
 ```
 sudo clang -O2 -Wall -emit-llvm -S hello_kern.c
 sudo llc hello_kern.ll -march=bpf -filetype=obj -o hello_kern.o
