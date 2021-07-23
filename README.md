@@ -55,6 +55,7 @@ llvm-objdump -d hello_kern.o
 [高效入门eBPF](https://www.bilibili.com/video/BV1LX4y157Gp/)<br>
 [BPF C编程入门](https://www.bilibili.com/video/BV1f54y1h74r/)<br>
 [透过ebpf观察进程行为](https://www.bilibili.com/video/BV1Bt411S7tg?from=search&seid=13293646945432916857)
+
 ## blog
 [ebpf_website](https://www.ebpf.top)
 [ebpf_blog](https://davidlovezoe.club/wordpress/archives/tag/bpf)
@@ -65,5 +66,7 @@ llvm-objdump -d hello_kern.o
 
 ## website
 [official-site](https://ebpf.io)<br>
-[ebpf_tracing_tools](http://www.brendangregg.com/ebpf.html)
+[ebpf_tracing_tools](http://www.brendangregg.com/ebpf.html)<br>
+[read list](https://linux.cn/article-9507-1.html)
+
 
