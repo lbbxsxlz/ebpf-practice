@@ -11,8 +11,19 @@ sudo apt-get update<br>
 sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
 
 ## practice
-sudo /usr/share/bcc/tools/tcplife<br>
-sudo /usr/share/bcc/tools/tcptracer 
+sudo /usr/share/bcc/tools/tcplife
+
+sudo /usr/share/bcc/tools/tcptracer
+
+sudo /usr/share/bcc/tools/execsnoop
+
+sudo /usr/share/bcc/tools/opensnoop
+
+sudo /usr/share/bcc/tools/biolatency
+
+/usr/share/bcc/tools/trace 'pam:pam_start "%s: %s", arg1, arg2'
+
+[ref](https://linux.cn/article-9139-1.html)
 
 # how to make bpf bytecode in C
 
