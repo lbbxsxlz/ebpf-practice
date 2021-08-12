@@ -22,10 +22,10 @@ sudo /usr/share/bcc/tools/tcptracer
 [sourcecode](https://github.com/libbpf/libbpf-bootstrap)
 
 
-## kernel code  sample/bpf
+## kernel code  samples/bpf
 ### install denpend libs
 
-make M=sample/bpf/
+make M=samples/bpf
 
 ### hello bpf
 在Makefile中修改如下：
@@ -35,12 +35,12 @@ hello-objs := bpf_load.o hello_user.o
 always += hello_kern.o
 ```
 编译：
-sudo make M=sample/bpf/
+sudo make M=samples/bpf/
 
 ### use clang compile 
 clang一次性编译
 ```
-sudo clang -O2 -Wall -target bpf -c hello_kern.c -o hello_kern.o
+sudo clang -O2 -Wall -target bpf  -I /usr/include/x86_64-linux-gnu/ -c hello_kern.c -o hello_kern.o
 ```
 clang，llvm前端生成.ll文件，然后llvm后端把.ll文件生成bpf字节码
 ```

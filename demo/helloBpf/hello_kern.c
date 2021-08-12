@@ -1,6 +1,7 @@
 #include <linux/bpf.h>
-#include "bpf_helpers.h"
-
+//#include "bpf_helpers.h"
+static int (*bpf_trace_printk)(const char *fmt, int fmt_size,
+                               ...) = (void *)BPF_FUNC_trace_printk;
 #define SEC(NAME) __attribute__((section(NAME), used))
 
 SEC("tracepoint/syscalls/sys_enter_execve")
