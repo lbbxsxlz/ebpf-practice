@@ -23,8 +23,12 @@ fakeroot debian/rules clean
 make -j8
 
 ## compile samples/bpf
+```
 sudo apt-get install libelf-dev
-
+cd /home/lbbxsxlz/kernel-src/ubuntu-xenial/tools/lib/bpf
+make;make install
+cp /usr/local/lib64/libbpf.* /lib/x86_64-linux-gnu/
+```
 修改 samples/bpf/Makefile下的LLC改成实际的llc
 
 sudo make M=samples/bpf

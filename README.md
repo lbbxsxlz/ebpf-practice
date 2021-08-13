@@ -35,7 +35,9 @@ sudo /usr/share/bcc/tools/biolatency
 
 ## kernel code  samples/bpf
 ### install denpend libs
-
+install libelf libbpf
+more in [samples_bpf_build_in_ubuntu-xenial](samples_bpf_build_in_ubuntu-xenial.md)
+#include "libbpf.h"
 make M=samples/bpf
 
 ### hello bpf
