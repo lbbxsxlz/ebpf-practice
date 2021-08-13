@@ -42,8 +42,9 @@ make M=samples/bpf
 在Makefile中修改如下：
 ```
 hostprogs-y += hello
-hello-objs := bpf_load.o hello_user.o
+hello-objs := bpf_load.o libbpf.o hello_user.o
 always += hello_kern.o
+HOSTLOADLIBES_hello += -lelf
 ```
 编译：
 sudo make M=samples/bpf/
