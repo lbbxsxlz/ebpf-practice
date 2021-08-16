@@ -51,6 +51,10 @@ HOSTLOADLIBES_hello += -lelf
 编译：
 sudo make M=samples/bpf/
 
+### another method
+please check [Makefile](demo/hellobpf/Makefile)
+make即可
+
 ### use clang compile 
 clang一次性编译
 ```
