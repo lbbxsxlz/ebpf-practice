@@ -1,10 +1,13 @@
 ## get kernel code
-```
 apt-cache search linux-source
-apt install linux-source-4.4.0
-cp /usr/src/linux-source-4.4.0/linux-source-4.4.0.tar.bz /home/lbbxsxlz/kernel-src/
+
+查找对应的内核版并安装
+
+```
+sudo apt install linux-source-4.4.0
+cp /usr/src/linux-source-4.4.0/linux-source-4.4.0.tar.bz2 /home/lbbxsxlz/kernel-src/
 cd /home/lbbxsxlz/kernel-src/
-tar jxvf linux-source-4.4.0.tar.bz
+tar jxvf linux-source-4.4.0.tar.bz2
 ```
 
 ## setup kernel config
