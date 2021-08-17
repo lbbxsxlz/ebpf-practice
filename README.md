@@ -35,9 +35,10 @@ sudo /usr/share/bcc/tools/biolatency
 
 ## kernel code  samples/bpf
 ### install denpend libs
-install libelf libbpf
+install libelf libbpf<br>
 more in [samples_bpf_build_in_ubuntu-xenial](samples_bpf_build_in_ubuntu-xenial.md)
-#include "libbpf.h"
+
+带码中添加 #include "libbpf.h"
 make M=samples/bpf
 
 ### hello bpf
@@ -52,8 +53,9 @@ HOSTLOADLIBES_hello += -lelf
 sudo make M=samples/bpf/
 
 ### another method
-please check [Makefile](demo/hellobpf/Makefile)
-make即可
+please check [Makefile](demo/helloBpf/Makefile)
+
+然后make即可
 
 ### use clang compile 
 clang一次性编译
