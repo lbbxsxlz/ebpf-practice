@@ -32,14 +32,10 @@ sudo /usr/share/bcc/tools/biolatency
 ## libbpf-bootstrap
 [sourcecode](https://github.com/libbpf/libbpf-bootstrap)
 
-
-## kernel code  samples/bpf
+## kernel code  samples/bpf in linux-source-4.4.0
 ### install denpend libs
 install libelf libbpf<br>
 more in [samples_bpf_build_in_ubuntu-xenial](samples_bpf_build_in_ubuntu-xenial.md)
-
-带码中添加 #include "libbpf.h"
-make M=samples/bpf
 
 ### hello bpf
 在Makefile中修改如下：
@@ -51,6 +47,34 @@ HOSTLOADLIBES_hello += -lelf
 ```
 编译：
 sudo make M=samples/bpf/
+
+### another method
+please check [Makefile](demo/helloBpf/Makefile)
+
+然后make即可
+
+## kernel code  samples/bpf in linux-source-4.15.0
+### install denpend libs
+install libelf <br>
+more in [samples_bpf_build_in_linux-4.15.0](samples_bpf_build_in_linux-4.15.0.md)
+
+### hello bpf
+在Makefile中修改如下：
+```
+hostprogs-y += hello
+hello-objs := bpf_load.o $(LIBBPF) hello_user.o
+always += hello_kern.o
+HOSTLOADLIBES_hello += -lelf
+```
+编译：
+sudo make M=samples/bpf/
+
+运行：
+sudo samples/bpf/hello
+
+            bash-4981  [008] ....  1733.269269: 0x00000001: Hello BPF!
+
+            bash-4982  [000] ....  1754.544873: 0x00000001: Hello BPF!
 
 ### another method
 please check [Makefile](demo/helloBpf/Makefile)
