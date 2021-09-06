@@ -3,26 +3,23 @@ ebpf learning and practice
 
 # bcc
 ## how to install bcc in ubuntu
-make practice in ubuntu Xenial Xerus
 
+make practice in ubuntu Xenial Xerus
+```bash
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD<br>
 echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list<br>
 sudo apt-get update<br>
 sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
-
+```
 ## practice
+```bash
 sudo /usr/share/bcc/tools/tcplife
-
 sudo /usr/share/bcc/tools/tcptracer
-
 sudo /usr/share/bcc/tools/execsnoop
-
 sudo /usr/share/bcc/tools/opensnoop
-
 sudo /usr/share/bcc/tools/biolatency
-
 /usr/share/bcc/tools/trace 'pam:pam_start "%s: %s", arg1, arg2'
-
+```
 [ref](https://linux.cn/article-9139-1.html)
 
 # how to make bpf bytecode in C
@@ -78,11 +75,11 @@ sudo samples/bpf/hello
 
 ### use clang compile 
 clang一次性编译
-```
+```bash
 sudo clang -O2 -Wall -target bpf  -I /usr/include/x86_64-linux-gnu/ -c hello_kern.c -o hello_kern.o
 ```
 clang，llvm前端生成.ll文件，然后llvm后端把.ll文件生成bpf字节码
-```
+```bash
 sudo clang -O2 -Wall -emit-llvm -S hello_kern.c
 sudo llc hello_kern.ll -march=bpf -filetype=obj -o hello_kern.o
 ```
