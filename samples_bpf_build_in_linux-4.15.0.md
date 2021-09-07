@@ -32,6 +32,8 @@ make -j8
 sudo apt-get install libelf-dev
 
 修改 samples/bpf/Makefile下的LLC改成实际的llc
+修改 tools/perf/perf-sys.h 71行
+#ifdef HAVE_ATTR_TEST 修改成 #if HAVE_ATTR_TEST
 
 sudo make M=samples/bpf
 
