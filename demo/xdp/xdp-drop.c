@@ -1,5 +1,5 @@
-#include <linux/bpf.h>
-//#include <uapi/linux/bpf.h>
+//#include <linux/bpf.h>
+#include <uapi/linux/bpf.h>
 #define SEC(NAME) __attribute__((section(NAME), used))
 
 SEC("xdp")
