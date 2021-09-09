@@ -1,0 +1,11 @@
+# github
+140.82.121.4 github.com
+
+Windows 系统：C:\Windows\System32\drivers\etc\hosts
+
+Linux 系统：/etc/hosts
+
+Windows：在 CMD 窗口输入：ipconfig /flushdns
+
+Linux 命令：sudo rcnscd restart
+
