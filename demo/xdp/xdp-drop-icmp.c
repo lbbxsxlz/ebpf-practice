@@ -24,7 +24,7 @@ static int parse_ipv4(void *data, u64 nh_off, void *data_end)
 
 SEC("xdp-icmp")
 
-int xdp_drop_the_world(struct xdp_md *ctx) {
+int xdp_drop_icmp(struct xdp_md *ctx) {
     void *data_end = (void *)(long)ctx->data_end;
     void *data = (void *)(long)ctx->data;
     struct ethhdr *eth = data;
