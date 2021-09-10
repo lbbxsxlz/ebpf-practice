@@ -17,8 +17,8 @@ static int parse_ipv4(void *data, u64 nh_off, void *data_end)
     struct iphdr *iph = data + nh_off;
 
     if ((void *)(iph + 1) > data_end)
-	return 0;
-	
+        return 0;
+
     return iph->protocol;
 }
 
@@ -35,16 +35,15 @@ int xdp_drop_icmp(struct xdp_md *ctx) {
 
     nh_off = sizeof(*eth);
     if (data + nh_off > data_end)
-	return XDP_DROP;
-	
+        return XDP_DROP;
+
     h_proto = eth->h_proto;
 
     if (h_proto == htons(ETH_P_IP)) {
-	ipproto = parse_ipv4(data, nh_off, data_end);
+        ipproto = parse_ipv4(data, nh_off, data_end);
         
-        if (IPPROTO_ICMP == ipproto) 
+        if (IPPROTO_ICMP == ipproto || 0 == ipproto)
             return XDP_DROP;
-
     }
 
     return XDP_PASS;
