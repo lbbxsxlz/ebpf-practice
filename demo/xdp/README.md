@@ -8,6 +8,8 @@ show me [code](xdp-drop.c)
 clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c xdp-drop.c -o xdp-drop.o
 
 ### 编译错误
+Ubuntu-16.04 有这个错误，需要按照以下流程处理
+
 "error: use of undeclared identifier 'XDP_DROP'" 
  
 修改代码头文件引用，
@@ -18,6 +20,8 @@ clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c xdp-drop.c -o x
 ```bash
 sudo cp -rf /usr/src/linux-headers-4.15.18-041518/include/uapi/* /usr/include/uapi/
 ```
+
+Ubuntu 18.04 可以直接用 #include <linux/bpf.h>
 
 -I /usr/include/x86_64-linux-gnu/  确定引用asm下的头文件
 
