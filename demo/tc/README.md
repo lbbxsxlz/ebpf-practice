@@ -22,8 +22,7 @@ CTYPE html>
 tc qdisc show dev vethd26706b
 ```
 
-qdisc noqueue 0: root refcnt 2 
-
+	qdisc noqueue 0: root refcnt 2 
 
 添加队列，自带的tc命令添加会失败，用了自己编译的高版本
 ```
@@ -31,8 +30,8 @@ sudo ~/workspace/iproute2-5.11.0/tc/tc qdisc add dev vethd26706b clsact
 tc qdisc show dev vethd26706b
 ```
 
-qdisc noqueue 0: root refcnt 2 
-qdisc clsact ffff: parent ffff:fff1 
+	qdisc noqueue 0: root refcnt 2 
+	qdisc clsact ffff: parent ffff:fff1 
 
 查看过滤器出口规则
 ```
@@ -44,56 +43,56 @@ sudo ~/workspace/iproute2-5.11.0/tc/tc filter show dev vethd26706b egress
 sudo ~/workspace/iproute2-5.11.0/tc/tc filter add dev vethd26706b egress bpf da obj tc-drop-tcp.o sec tc-tcp verbose
 ```
 
-Continuing without mounted eBPF fs. Too old kernel?
+	Continuing without mounted eBPF fs. Too old kernel?
 
-Prog section 'tc-tcp' loaded (5)!
- - Type:         3
- - Instructions: 19 (0 over limit)
- - License:      GPL
+	Prog section 'tc-tcp' loaded (5)!
+	 - Type:         3
+	 - Instructions: 19 (0 over limit)
+	 - License:      GPL
 
-Verifier analysis:
+	Verifier analysis:
 
-0: (b7) r0 = 2
-1: (61) r2 = *(u32 *)(r1 +80)
-2: (61) r1 = *(u32 *)(r1 +76)
-3: (bf) r3 = r1
-4: (07) r3 += 14
-5: (2d) if r3 > r2 goto pc+12
- R0=inv2 R1=pkt(id=0,off=0,r=14,imm=0) R2=pkt_end(id=0,off=0,imm=0) R3=pkt(id=0,off=14,r=14,imm=0) R10=fp0
-6: (bf) r3 = r1
-7: (07) r3 += 34
-8: (2d) if r3 > r2 goto pc+8
- R0=inv2 R1=pkt(id=0,off=0,r=34,imm=0) R2=pkt_end(id=0,off=0,imm=0) R3=pkt(id=0,off=34,r=34,imm=0) R10=fp0
-9: (71) r2 = *(u8 *)(r1 +13)
-10: (67) r2 <<= 8
-11: (71) r3 = *(u8 *)(r1 +12)
-12: (4f) r2 |= r3
-13: (57) r2 &= 65535
-14: (55) if r2 != 0x8 goto pc+2
- R0=inv2 R1=pkt(id=0,off=0,r=34,imm=0) R2=inv8 R3=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R10=fp0
-15: (71) r1 = *(u8 *)(r1 +23)
-16: (15) if r1 == 0x6 goto pc+1
- R0=inv2 R1=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R2=inv8 R3=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R10=fp0
-17: (b7) r0 = 0
-18: (95) exit
+	0: (b7) r0 = 2
+	1: (61) r2 = *(u32 *)(r1 +80)
+	2: (61) r1 = *(u32 *)(r1 +76)
+	3: (bf) r3 = r1
+	4: (07) r3 += 14
+	5: (2d) if r3 > r2 goto pc+12
+	 R0=inv2 R1=pkt(id=0,off=0,r=14,imm=0) R2=pkt_end(id=0,off=0,imm=0) R3=pkt(id=0,off=14,r=14,imm=0) R10=fp0
+	6: (bf) r3 = r1
+	7: (07) r3 += 34
+	8: (2d) if r3 > r2 goto pc+8
+	 R0=inv2 R1=pkt(id=0,off=0,r=34,imm=0) R2=pkt_end(id=0,off=0,imm=0) R3=pkt(id=0,off=34,r=34,imm=0) R10=fp0
+	9: (71) r2 = *(u8 *)(r1 +13)
+	10: (67) r2 <<= 8
+	11: (71) r3 = *(u8 *)(r1 +12)
+	12: (4f) r2 |= r3
+	13: (57) r2 &= 65535
+	14: (55) if r2 != 0x8 goto pc+2
+	 R0=inv2 R1=pkt(id=0,off=0,r=34,imm=0) R2=inv8 R3=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R10=fp0
+	15: (71) r1 = *(u8 *)(r1 +23)
+	16: (15) if r1 == 0x6 goto pc+1
+	 R0=inv2 R1=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R2=inv8 R3=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R10=fp0
+	17: (b7) r0 = 0
+	18: (95) exit
 
-from 16 to 18: R0=inv2 R1=inv6 R2=inv8 R3=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R10=fp0
-18: (95) exit
+	from 16 to 18: R0=inv2 R1=inv6 R2=inv8 R3=inv(id=0,umax_value=255,var_off=(0x0; 0xff)) R10=fp0
+	18: (95) exit
 
-from 14 to 17: safe
+	from 14 to 17: safe
 
-from 8 to 17: safe
+	from 8 to 17: safe
 
-from 5 to 18: safe
-processed 23 insns, stack depth 0
+	from 5 to 18: safe
+	processed 23 insns, stack depth 0
 
 再次查看过滤器出口规则
 ```
 sudo ~/workspace/iproute2-5.11.0/tc/tc filter show dev vethd26706b egress
 ```
 
-filter protocol all pref 49152 bpf chain 0 
-filter protocol all pref 49152 bpf chain 0 handle 0x1 tc-drop-tcp.o:[tc-tcp] direct-action not_in_hw id 10 tag e4e8d89f5834ec06 jited 
+	filter protocol all pref 49152 bpf chain 0 
+	filter protocol all pref 49152 bpf chain 0 handle 0x1 tc-drop-tcp.o:[tc-tcp] direct-action not_in_hw id 10 tag e4e8d89f5834ec06 jited 
 
 此时容器访问外部网络，使用以上的ip netns命令，无输出
 

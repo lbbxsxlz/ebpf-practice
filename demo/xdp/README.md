@@ -4,9 +4,9 @@
 show me [code](xdp-drop.c)
 
 编译命令：
-
+```
 clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c xdp-drop.c -o xdp-drop.o
-
+```
 ### 编译错误
 Ubuntu-16.04 有这个错误，需要按照以下流程处理
 
@@ -26,8 +26,9 @@ Ubuntu 18.04 可以直接用 #include <linux/bpf.h>
 -I /usr/include/x86_64-linux-gnu/  确定引用asm下的头文件
 
 ### 测试
+```
 ip link set dev eth0 xdp obj xdp-drop.o sec xdp
-
+```
 报错：
 
 	Error: either "dev" is duplicate, or "xdp" is a garbage.
@@ -35,8 +36,9 @@ ip link set dev eth0 xdp obj xdp-drop.o sec xdp
 怀疑跟iproute2的版本有关，默认安装的iproute2版本过低，不支持xdp。
 
 下载最新的iproute2-5.11.0，编译后，用以下命令验证，确认断网。
-
+```
 sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev eth0 xdp obj xdp-drop.o sec xdp verbose
+```
 
 	Continuing without mounted eBPF fs. Too old kernel?
 	Prog section 'xdp' loaded (5)!
@@ -52,22 +54,25 @@ sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev eth0 xdp obj xd
 
 
 恢复网络：
-
+```
 sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev eth0 xdp off
-
+```
 ### 使用docker验证
+```
 docker ps -a
+```
 
 	CONTAINER ID        IMAGE                        COMMAND             CREATED             STATUS              PORTS               NAMES
 	44cce8b245a7        lbbxsxlz/ubuntu_20.04_ext4   "/bin/bash"         3 weeks ago         Up 21 hours                             test-show
 
 启动docker
-
+```
 docker start test-show
-
+```
 确定docker容器的网卡
-
+```
 ip link show
+```
 
 	1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
 	    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -81,8 +86,9 @@ ip link show
 	    link/ether 4a:0f:73:3c:52:6c brd ff:ff:ff:ff:ff:ff link-netnsid 0
 
 确认docker容器的ip
-
+```
 docker inspect test-show --format='{{.NetworkSettings.Networks.bridge}}'
+```
 
 	{<nil> [] [] 3c0f4a2efb769323551e2e7a8f0b611e59ff310876a1850536bfa4a0b7226546 25e07e86937b07245d4ff5f94f6e0aa2da53d226b3d096cc1db21271169361b8 172.17.0.1 172.17.0.2 16   0 02:42:ac:11:00:02 map[]}
 
@@ -96,8 +102,9 @@ docker inspect test-show --format='{{.NetworkSettings.Networks.bridge}}'
 	64 bytes from 172.17.0.2: icmp_seq=4 ttl=64 time=0.069 ms
 
 加载xdp
-
+```
 sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev veth8935654 xdp obj xdp-drop.o sec xdp verbose
+```
 
 	From 172.17.0.1 icmp_seq=80 Destination Host Unreachable
 	From 172.17.0.1 icmp_seq=81 Destination Host Unreachable
@@ -105,8 +112,9 @@ sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev veth8935654 xdp
 	From 172.17.0.1 icmp_seq=83 Destination Host Unreachable
 
 卸载xdp
-
+```
 sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev veth8935654 xdp obj off
+```
 
 	64 bytes from 172.17.0.2: icmp_seq=98 ttl=64 time=0.043 ms
 	64 bytes from 172.17.0.2: icmp_seq=99 ttl=64 time=0.018 ms
@@ -117,12 +125,13 @@ sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev veth8935654 xdp
 show me [code](xdp-drop-icmp.c)
 
 编译：
-
+```
 clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c  xdp-drop-icmp.c -o xdp-drop-icmp.o
-
+```
 查看测试机IP，
-
+```
 ifconfig eth0
+```
 
 	eth0      Link encap:以太网  硬件地址 e4:b9:7a:f7:78:2b  
 	          inet 地址:172.31.1.102  广播:172.31.255.255  掩码:255.255.0.0
@@ -137,8 +146,9 @@ ifconfig eth0
 在外部网络ping测试机，
 
 测试机加载程序，
-
+```
 sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev eth0 xdp obj xdp-drop-icmp.o sec xdp-icmp verbose
+```
 
 	Continuing without mounted eBPF fs. Too old kernel?
 
@@ -185,9 +195,9 @@ sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev eth0 xdp obj xd
 
 
 测试机卸载程序，
-
+```
 sudo /home/lbbxsxlz/workspace/iproute2-5.11.0/ip/ip link set dev eth0 xdp off
-
+```
 验证结果如下图所示：
 
 ![结果](./test.jpg)
@@ -209,7 +219,9 @@ docker ps -a
 	71fae414918b   lbbxsxlz/nginx   "nginx"   11 seconds ago   Up 10 seconds   0.0.0.0:49153->80/tcp, :::49153->80/tcp   firstWeb
 
 使用curl访问，
+```
 curl 127.0.0.1:49153
+```
 
 	<head>
 
