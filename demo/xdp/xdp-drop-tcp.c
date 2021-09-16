@@ -20,9 +20,9 @@ static int handle_ipv4(void *data, u64 nh_off, void *data_end)
          return XDP_DROP;
 
     if (IPPROTO_TCP == iph->protocol)
-		return XDP_DROP;
-	
-	return XDP_PASS;
+         return XDP_DROP;
+
+    return XDP_PASS;
 }
 
 SEC("xdp-tcp")

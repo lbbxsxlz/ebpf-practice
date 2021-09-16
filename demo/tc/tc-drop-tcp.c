@@ -19,8 +19,8 @@ static int parse_ipv4(void *data, u64 nh_off, void *data_end)
     struct iphdr *iph = data + nh_off;
 
     if ((void *)(iph + 1) > data_end)
-	return 0;
-	
+        return 0;
+
     return iph->protocol;
 }
 
@@ -37,12 +37,12 @@ int tc_drop_tcp(struct __sk_buff *skb) {
 
     nh_off = sizeof(*eth);
     if (data + nh_off > data_end)
-	return TC_ACT_SHOT;
-	
+        return TC_ACT_SHOT;
+
     h_proto = eth->h_proto;
 
     if (h_proto == htons(ETH_P_IP)) {
-	ipproto = parse_ipv4(data, nh_off, data_end);
+        ipproto = parse_ipv4(data, nh_off, data_end);
         
         if (IPPROTO_TCP == ipproto) 
             return TC_ACT_SHOT;
