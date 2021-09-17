@@ -25,7 +25,7 @@ sudo /usr/share/bcc/tools/biolatency
 # how to make bpf bytecode in C
 
 ## bcc
-
+To Do ...
 ## libbpf-bootstrap
 [sourcecode](https://github.com/libbpf/libbpf-bootstrap)
 
@@ -46,7 +46,7 @@ HOSTLOADLIBES_hello += -lelf
 sudo make M=samples/bpf/
 
 ### another method
-please check [Makefile](demo/helloBpf/Makefile)
+please check [Makefile](helloBpf/Makefile)
 
 然后make即可
 
@@ -85,6 +85,11 @@ sudo llc hello_kern.ll -march=bpf -filetype=obj -o hello_kern.o
 ```
 查看字节码<br>
 llvm-objdump -d hello_kern.o
+
+# bpf using in network
+## bpf using in [XDP](xdp/README.md)
+
+## bpf using in [TC](tc/README.md)
 
 # reference
 ## video
