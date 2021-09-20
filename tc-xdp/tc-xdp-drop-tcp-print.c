@@ -1,9 +1,9 @@
-#include <uapi/linux/bpf.h>
+#include <linux/bpf.h>
 #include <linux/if_ether.h>
 #include <linux/ip.h>
 #include <linux/in.h>
-//#include <linux/pkt_cls.h>
-#include <uapi/linux/pkt_cls.h>
+#include <linux/pkt_cls.h>
+#include "bpf_helpers.h"
 
 typedef unsigned short u16;
 typedef unsigned int u32;
