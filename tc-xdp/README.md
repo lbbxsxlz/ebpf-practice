@@ -1,5 +1,6 @@
 # ebpf in tc and xdp
 
+## tc and xdp drop tcp
 clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c tc-xdp-drop-tcp.c -o tc-xdp-drop-tcp.o
 
 curl 127.0.0.1:49153     有输出
@@ -30,4 +31,42 @@ sudo ip netns exec firstWeb curl www.baidu.com   有输出
 curl 127.0.0.1:49153     有输出
 
 
+## tc and xdp drop tcp with print ipaddr
+clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c tc-xdp-drop-tcp-print.c -o tc-xdp-drop-tcp-print.o
+
+sudo ~/tools/iproute2-5.11.0/tc/tc qdisc add dev vethb9f28cb clsact
+sudo ~/tools/iproute2-5.11.0/tc/tc filter add dev vethb9f28cb egress bpf da obj tc-xdp-drop-tcp.o sec tc-tcp verbose
+
+sudo cat /sys/kernel/debug/tracing/trace_pipe
+
+sudo ip netns exec firstWeb curl www.baidu.com
+          	
+		  <idle>-0     [005] .Ns.  1472.645742: 0x00000001: src ip addr part1: 223.5.5
+	          <idle>-0     [005] .Ns.  1472.645742: 0x00000001: src ip addr part2:.5
+	          <idle>-0     [005] .Ns.  1472.645744: 0x00000001: dst ip addr part1: 172.17.0
+	          <idle>-0     [005] .Ns.  1472.645744: 0x00000001: dst ip addr part2: .2
+	          <idle>-0     [011] ..s.  1472.805959: 0x00000001: src ip addr part1: 182.61.200
+	          <idle>-0     [011] .Ns.  1472.805979: 0x00000001: src ip addr part2:.6
+	          <idle>-0     [011] .Ns.  1472.805981: 0x00000001: dst ip addr part1: 172.17.0
+	          <idle>-0     [011] .Ns.  1472.805982: 0x00000001: dst ip addr part2: .2
+	 irq/128-iwlwifi-570   [011] ....  1473.709837: 0x00000001: src ip addr part1: 182.61.200
+	 irq/128-iwlwifi-570   [011] ....  1473.709854: 0x00000001: src ip addr part2:.6
+	 irq/128-iwlwifi-570   [011] ....  1473.709855: 0x00000001: dst ip addr part1: 172.17.0
+	 irq/128-iwlwifi-570   [011] ....  1473.709856: 0x00000001: dst ip addr part2: .2
+	 irq/128-iwlwifi-570   [011] ....  1475.727897: 0x00000001: src ip addr part1: 182.61.200
+	 irq/128-iwlwifi-570   [011] ....  1475.727914: 0x00000001: src ip addr part2:.6
+	 irq/128-iwlwifi-570   [011] ....  1475.727916: 0x00000001: dst ip addr part1: 172.17.0
+	 irq/128-iwlwifi-570   [011] ....  1475.727917: 0x00000001: dst ip addr part2: .2
+
+
+curl 127.0.0.1:49153
+
+	    docker-proxy-3814  [009] ....  1565.159081: 0x00000001: src ip addr part1: 172.17.0
+	    docker-proxy-3814  [009] ....  1565.159084: 0x00000001: src ip addr part2:.1
+	    docker-proxy-3814  [009] ....  1565.159085: 0x00000001: dst ip addr part1: 172.17.0
+	    docker-proxy-3814  [009] ....  1565.159085: 0x00000001: dst ip addr part2: .2
+	          <idle>-0     [009] ..s.  1566.162399: 0x00000001: src ip addr part1: 172.17.0
+	          <idle>-0     [009] .Ns.  1566.162417: 0x00000001: src ip addr part2:.1
+	          <idle>-0     [009] .Ns.  1566.162419: 0x00000001: dst ip addr part1: 172.17.0
+	          <idle>-0     [009] .Ns.  1566.162420: 0x00000001: dst ip addr part2: .2
 
