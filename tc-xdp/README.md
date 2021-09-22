@@ -32,6 +32,7 @@ curl 127.0.0.1:49153     有输出
 
 
 ## tc and xdp drop tcp with print ipaddr
+bpf_helper   from   ~/kernel-src/linux-source-4.15.0/tools/testing/selftests/bpf/
 clang -O2 -Wall -target bpf -I /usr/include/x86_64-linux-gnu/ -c tc-xdp-drop-tcp-print.c -o tc-xdp-drop-tcp-print.o
 
 sudo ~/tools/iproute2-5.11.0/tc/tc qdisc add dev vethb9f28cb clsact
