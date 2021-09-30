@@ -28,10 +28,11 @@ static void int_exit(int sig)
 }
 
 // An XDP program which track packets with IP address
-// Usage: ./xdp_ip_tracker
+
 int main(int argc, char **argv)
 {
-    char *filename = "xdp_ip_tracker_kern.o";
+    char filename[256];
+    snprintf(filename, sizeof(filename), "%s_kern.o", argv[0]);
     // change limits
     struct rlimit r = {RLIM_INFINITY, RLIM_INFINITY};
     if (setrlimit(RLIMIT_MEMLOCK, &r))

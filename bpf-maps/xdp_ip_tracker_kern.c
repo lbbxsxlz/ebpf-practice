@@ -10,13 +10,6 @@
 #include "bpf_helpers.h"
 #include "xdp_ip_tracker_common.h"
 
-#define bpf_printk(fmt, ...)                       \
-    ({                                             \
-        char ____fmt[] = fmt;                      \
-        bpf_trace_printk(____fmt, sizeof(____fmt), \
-                         ##__VA_ARGS__);           \
-    })
-
 struct bpf_map_def SEC("maps") tracker_map = {
     .type = BPF_MAP_TYPE_HASH,
     .key_size = sizeof(struct pair),
@@ -24,21 +17,21 @@ struct bpf_map_def SEC("maps") tracker_map = {
     .max_entries = 2048,
 };
 
-static __always_inline bool parse_and_track(bool is_rx, void *data_begin, void *data_end, struct pair *pair)
+static __always_inline bool parse_and_track(void *data_begin, void *data_end, struct pair *pair)
 {
     struct ethhdr *eth = data_begin;
 
     if ((void *)(eth + 1) > data_end)
         return false;
 
-    if (eth->h_proto == bpf_htons(ETH_P_IP))
+    if (eth->h_proto == htons(ETH_P_IP))
     {
         struct iphdr *iph = (struct iphdr *)(eth + 1);
         if ((void *)(iph + 1) > data_end)
             return false;
 
-        pair->src_ip = is_rx ? iph->daddr : iph->saddr;
-        pair->dest_ip = is_rx ? iph->saddr : iph->daddr;
+        pair->src_ip = iph->daddr;
+        pair->dest_ip = iph->saddr;
 
         // update the map for track
         struct stats *stats, newstats = {0, 0, 0, 0};
@@ -47,29 +40,13 @@ static __always_inline bool parse_and_track(bool is_rx, void *data_begin, void *
         stats = bpf_map_lookup_elem(&tracker_map, pair);
         if (stats)
         {
-            if (is_rx)
-            {
-                stats->rx_cnt++;
-                stats->rx_bytes += bytes;
-            }
-            else
-            {
-                stats->tx_cnt++;
-                stats->tx_bytes += bytes;
-            }
+            stats->rx_cnt++;
+            stats->rx_bytes += bytes;
         }
         else
         {
-            if (is_rx)
-            {
-                newstats.rx_cnt = 1;
-                newstats.rx_bytes = bytes;
-            }
-            else
-            {
-                newstats.tx_cnt = 1;
-                newstats.tx_bytes = bytes;
-            }
+            newstats.rx_cnt = 1;
+            newstats.rx_bytes = bytes;
             bpf_map_update_elem(&tracker_map, pair, &newstats, BPF_NOEXIST);
         }
         return true;
@@ -78,17 +55,15 @@ static __always_inline bool parse_and_track(bool is_rx, void *data_begin, void *
 }
 
 SEC("xdp_ip_tracker")
-int _xdp_ip_tracker(struct xdp_md *ctx)
+int xdp_ip_tracker(struct xdp_md *ctx)
 {
     // the struct to store the ip address as the keys of bpf map
     struct pair pair;
 
-    bpf_printk("starting xdp ip tracker...\n");
-
     void *data_end = (void *)(long)ctx->data_end;
     void *data = (void *)(long)ctx->data;
     // pass if the network packet is not ipv4
-    if (!parse_and_track(true, data, data_end, &pair))
+    if (!parse_and_track(data, data_end, &pair))
         return XDP_PASS;
 
     return XDP_DROP;
