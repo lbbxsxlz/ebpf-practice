@@ -55,7 +55,7 @@ static __always_inline bool parse_and_track(void *data_begin, void *data_end, st
 }
 
 SEC("xdp_ip_tracker")
-int xdp_ip_tracker(struct xdp_md *ctx)
+int _xdp_ip_tracker(struct xdp_md *ctx)
 {
     // the struct to store the ip address as the keys of bpf map
     struct pair pair;
