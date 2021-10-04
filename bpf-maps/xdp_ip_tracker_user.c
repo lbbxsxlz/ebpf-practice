@@ -16,7 +16,7 @@
 #include "bpf_util.h"
 #include "xdp_ip_tracker_common.h"
 
-static int ifindex = 6; // target network interface to attach, you can find it via `ip a`
+static int ifindex; // target network interface to attach, you can find it via `ip a`
 static __u32 xdp_flags = 0;
 
 // unlink the xdp program and exit
@@ -33,6 +33,16 @@ int main(int argc, char **argv)
 {
     char filename[256];
     snprintf(filename, sizeof(filename), "%s_kern.o", argv[0]);
+	
+	if (argc = 2) {
+		perror("invalid param \n");
+		printf("xdp_ip_tracker $ifindex \n");
+		printf("e.p.: xdp_ip_tracker 6 \n");
+		return 1;
+	}
+	
+	ifindex = atoi(argv[1]);
+	
     // change limits
     struct rlimit r = {RLIM_INFINITY, RLIM_INFINITY};
     if (setrlimit(RLIMIT_MEMLOCK, &r))
