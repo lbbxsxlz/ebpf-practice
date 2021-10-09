@@ -34,14 +34,17 @@ int main(int argc, char **argv)
     char filename[256];
     snprintf(filename, sizeof(filename), "%s_kern.o", argv[0]);
 	
-	if (argc = 2) {
-		perror("invalid param \n");
-		printf("xdp_ip_tracker $ifindex \n");
-		printf("e.p.: xdp_ip_tracker 6 \n");
-		return 1;
-	}
-	
-	ifindex = atoi(argv[1]);
+    if (argc != 2) {
+        perror("invalid param \n");
+        printf("xdp_ip_tracker $ifname/ifindex \n");
+        printf("e.p.: xdp_ip_tracker veth6dd571a/6 \n");
+        return 1;
+    }
+    
+    ifindex = if_nametoindex(argv[1]);
+
+    if (!ifindex)
+        ifindex = atoi(argv[1]);
 	
     // change limits
     struct rlimit r = {RLIM_INFINITY, RLIM_INFINITY};
