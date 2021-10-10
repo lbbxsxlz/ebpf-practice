@@ -35,7 +35,7 @@ int main(int argc, char **argv)
     snprintf(filename, sizeof(filename), "%s_kern.o", argv[0]);
 	
     if (argc != 2) {
-        perror("invalid param \n");
+        printf("invalid param \n");
         printf("xdp_ip_tracker $ifname/ifindex \n");
         printf("e.p.: xdp_ip_tracker veth6dd571a/6 \n");
         return 1;

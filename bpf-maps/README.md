@@ -17,9 +17,11 @@ sudo make M=samples/bpf
 ## 启动docker
 通过ip a命令确定 容器的网卡编号是6
 故 xdp_ip_tracker_user.c中的ifindex = 6
+最新代码网卡索引通过命令行参数传入网卡名或索引号确认。
 
 ## 启动测试命令
-sudo samples/bpf/xdp_ip_tracker 
+sudo samples/bpf/xdp_ip_tracker ifname/ifindex
+e.p. sudo samples/bpf/xdp_ip_tracker veth4195f5d/6
 
 在另一个窗口中访问容器
 curl 127.0.0.1：49153
