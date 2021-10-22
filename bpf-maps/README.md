@@ -13,7 +13,6 @@ HOSTLOADLIBES_xdp_ip_tracker += -lelf
 ## 编译
 sudo make M=samples/bpf
 
-
 ## 启动docker
 通过ip a命令确定 容器的网卡编号是6，故可以在xdp_ip_tracker_user.c中指定ifindex = 6
 
@@ -35,5 +34,15 @@ curl 127.0.0.1：49153
 	rx_cnt value read from the map: '1'
 	rx_bytes value read from the map: '74'
 
+## bpftool
+编译 cd ~/kernel-src/linux-source-4.15.0;make -C tools/bpf/bpftool/
+
+tools/bpf/bpftool/bpftool
+Usage: tools/bpf/bpftool/bpftool [OPTIONS] OBJECT { COMMAND | help }
+       tools/bpf/bpftool/bpftool batch file FILE
+       tools/bpf/bpftool/bpftool version
+
+       OBJECT := { prog | map }
+       OPTIONS := { {-j|--json} [{-p|--pretty}] | {-f|--bpffs} }
 
 
