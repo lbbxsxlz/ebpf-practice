@@ -2,6 +2,10 @@
 
 把以下内容添加倒hosts中
 # github
+15.164.81.167 github.com
+52.192.72.89 github.com
+13.114.40.48 github.com
+15.164.81.167  github.com
 140.82.121.4 github.com
 15.164.81.167 github.com
 13.114.40.48 github.com
