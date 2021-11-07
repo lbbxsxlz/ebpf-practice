@@ -45,4 +45,10 @@ Usage: tools/bpf/bpftool/bpftool [OPTIONS] OBJECT { COMMAND | help }
        OBJECT := { prog | map }
        OPTIONS := { {-j|--json} [{-p|--pretty}] | {-f|--bpffs} }
 
+## 编译libbpf
+解决找不到bpd.h
+sudo apt install binutils-dev  ##安装bunutils-dev需要先apt update
+解决找不到readline.h
+sudo apt install libreadline-dev
+
 
