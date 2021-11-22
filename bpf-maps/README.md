@@ -28,6 +28,7 @@ e.p. sudo samples/bpf/xdp_ip_tracker veth4195f5d/6
 curl 127.0.0.1：49153
 
 出现以下打印：
+
 	start a new loop...
 	start a new loop...
 	start a new loop...
@@ -40,12 +41,13 @@ curl 127.0.0.1：49153
 编译 cd ~/kernel-src/linux-source-4.15.0;make -C tools/bpf/bpftool/
 
 tools/bpf/bpftool/bpftool
-Usage: tools/bpf/bpftool/bpftool [OPTIONS] OBJECT { COMMAND | help }
-       tools/bpf/bpftool/bpftool batch file FILE
-       tools/bpf/bpftool/bpftool version
 
-       OBJECT := { prog | map }
-       OPTIONS := { {-j|--json} [{-p|--pretty}] | {-f|--bpffs} }
+	Usage: tools/bpf/bpftool/bpftool [OPTIONS] OBJECT { COMMAND | help }
+		tools/bpf/bpftool/bpftool batch file FILE
+		tools/bpf/bpftool/bpftool version
+		
+		OBJECT := { prog | map }
+		OPTIONS := { {-j|--json} [{-p|--pretty}] | {-f|--bpffs} }
 
 ## 编译libbpf
 解决找不到bpd.h
