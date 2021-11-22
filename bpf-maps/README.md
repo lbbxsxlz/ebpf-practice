@@ -1,7 +1,8 @@
 
 ## 修改Makefile
-~/kernel-src/linux-source-4.15.0/samples/bpf/Makefile
+vi ~/kernel-src/linux-source-4.15.0/samples/bpf/Makefile
 
+修改四处，分别添加
 hostprogs-y += xdp_ip_tracker
 
 xdp_ip_tracker-objs := bpf_load.o $(LIBBPF) xdp_ip_tracker_user.o
@@ -19,7 +20,8 @@ sudo make M=samples/bpf
 目前的代码网卡索引通过命令行参数传入网卡名或索引号来获取。
 
 ## 启动测试命令
-sudo samples/bpf/xdp_ip_tracker ifname/ifindex
+sudo samples/bpf/xdp_ip_tracker $ifname/$ifindex
+
 e.p. sudo samples/bpf/xdp_ip_tracker veth4195f5d/6
 
 在另一个窗口中访问容器
@@ -48,7 +50,6 @@ Usage: tools/bpf/bpftool/bpftool [OPTIONS] OBJECT { COMMAND | help }
 ## 编译libbpf
 解决找不到bpd.h
 sudo apt install binutils-dev  ##安装bunutils-dev需要先apt update
+
 解决找不到readline.h
 sudo apt install libreadline-dev
-
-
