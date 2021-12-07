@@ -1,0 +1,25 @@
+ssh-keygen -t rsa -C "user1@gamil.com" -f ~/.ssh/github_rsa
+
+ssh-keygen -t ed25519 -C "user2@intel.com" -f ~/.ssh/github_ed25519
+
+edit ~/.ssh/config
+
+  # user1 Github
+  Host user1@github.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/github_rsa
+
+  # user2 Github
+  Host user2@github.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/github_ed25519
+ 
+git config --global --list
+ 
+git config --global --unset user.name
+git config --global --unset user.email
+
+git config --global --list
+ 
+git config user.name="user1"
+git config user.email="user1@xxx.com"
