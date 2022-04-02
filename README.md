@@ -99,6 +99,12 @@ bpf-maps[demo](bpf-maps/README.md)
 # libbpf CORE
 To Do ...
 
+# bpftrace
+[repo](​https://github.com/iovisor/bpftrace​)
+## install
+sudo snap install --devmode bpftrace
+sudo snap connect bpftrace:system-trace
+
 # reference
 ## video
 [高效入门eBPF](https://www.bilibili.com/video/BV1LX4y157Gp/)<br>
