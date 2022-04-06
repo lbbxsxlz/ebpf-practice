@@ -94,13 +94,13 @@ llvm-objdump -d hello_kern.o
 ## bpf using in [TC](tc/README.md)
 
 # bpf Maps
-bpf-maps[demo](bpf-maps/README.md)
+bpf-maps show in [demo](bpf-maps/README.md)
 
 # libbpf CORE
 To Do ...
 
 # bpftrace
-[repo](​https://github.com/iovisor/bpftrace​)
+[repo](https://github.com/iovisor/bpftrace)
 ## install
 sudo snap install --devmode bpftrace
 sudo snap connect bpftrace:system-trace
