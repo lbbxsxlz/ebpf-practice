@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 {
     char filename[256];
     snprintf(filename, sizeof(filename), "%s_kern.o", argv[0]);
-	
+    
     if (argc != 2) {
         printf("invalid param \n");
         printf("xdp_ip_tracker $ifname/ifindex \n");
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 
     if (!ifindex)
         ifindex = atoi(argv[1]);
-	
+    
     // change limits
     struct rlimit r = {RLIM_INFINITY, RLIM_INFINITY};
     if (setrlimit(RLIMIT_MEMLOCK, &r))
