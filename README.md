@@ -3,18 +3,32 @@ ebpf learning and practice
 
 # bcc
 ## how to install bcc in ubuntu
-
-## install ubuntu Xenial Xerus
-1. first way
+1. bpfcc-tools
 ```bash
 sudo apt-get install bpfcc-tools linux-headers-$(uname -r)
 ```
-2. second way
+2. iovisor packages
 ```bash
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
 echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list
 sudo apt-get update
 sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
+```
+3. build source codes
+```
+sudo apt-get -y install linux-headers-$(uname -r)
+sudo apt-get -y install bison build-essential cmake flex libedit-dev libllvm6.0 llvm-6.0-dev libclang-6.0-dev python zlib1g-dev libelf-dev libfl-dev python3-distutils
+
+tar zxvf bcc-src-with-submodule.tar.gz #0.24.0
+mkdir bcc/build;cd bcc/build
+cmake ..
+make
+sudo make install
+cmake -DPYTHON_CMD=python3 ..
+pushd src/python/
+make
+sudo make install
+popd
 ```
 ## bcc-tools
 ```
