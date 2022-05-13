@@ -47,18 +47,17 @@ sudo /usr/share/bcc/tools/biolatency
 ```
 [ref](https://linux.cn/article-9139-1.html)
 
-## python call BCC
+## build my bcc tools
 [hello bpfcc](bcc/hello_bpfcc.py)
 
-# how to make bpf bytecode in C
-
+# ebpf bytecode in C language
 ## libbpf-bootstrap
 [sourcecode](https://github.com/libbpf/libbpf-bootstrap)
 
 ## kernel code samples/bpf in linux-source-4.4.0
 ### install denpending libs
 install libelf libbpf<br>
-more in [samples_bpf_build_in_ubuntu-xenial](samples_bpf_build_in_ubuntu-xenial.md)
+more details in [samples_bpf_build_in_ubuntu-xenial](samples_bpf_build_in_ubuntu-xenial.md)
 
 ### hello bpf
 在Makefile中修改如下：
@@ -72,9 +71,9 @@ HOSTLOADLIBES_hello += -lelf
 sudo make M=samples/bpf/
 
 ### another method
-please check [Makefile](helloBpf/Makefile)
+使用该 [Makefile](helloBpf/Makefile) 
 
-然后make即可
+然后直接make即可
 
 ## kernel code samples/bpf in linux-source-4.15.0
 ### install denpending libs
@@ -109,26 +108,38 @@ clang，llvm前端生成.ll文件，然后llvm后端把.ll文件生成bpf字节�
 sudo clang -O2 -Wall -emit-llvm -S hello_kern.c
 sudo llc hello_kern.ll -march=bpf -filetype=obj -o hello_kern.o
 ```
-查看字节码<br>
+查看字节码
+```
 llvm-objdump -d hello_kern.o
+```
+## Demos using ebpf in ethernet network
 
-# bpf using in network
+### using ebpf  for [XDP](xdp/README.md)
 
-## bpf using in [XDP](xdp/README.md)
-
-## bpf using in [TC](tc/README.md)
+### using ebpf for [TC](tc/README.md)
 
 # bpf Maps
 bpf-maps show in [demo](bpf-maps/README.md)
 
 # libbpf CORE
-To Do ...
+Need To Do ...
 
 # bpftrace
 [repo](https://github.com/iovisor/bpftrace)
-## install
+## how to install bpftrace
+```
 sudo snap install --devmode bpftrace
 sudo snap connect bpftrace:system-trace
+```
+
+## first demo:
+```
+sudo bpftrace -e 'BEGIN {print("hello world!\n")}'
+
+```
+
+## more details
+please click  [here](bpftrace/README.md)
 
 # reference
 ## video
@@ -148,5 +159,3 @@ sudo snap connect bpftrace:system-trace
 [official-site](https://ebpf.io)<br>
 [ebpf_tracing_tools](http://www.brendangregg.com/ebpf.html)<br>
 [read list](https://linux.cn/article-9507-1.html)
-
-
