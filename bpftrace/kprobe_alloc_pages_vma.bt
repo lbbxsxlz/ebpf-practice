@@ -1,0 +1,19 @@
+#include <linux/mm_types.h>
+
+BEGIN
+{
+	printf("ctrl + c to finish the program! \n");
+
+	printf("Begin to trace: \n");
+}
+
+kprobe:alloc_pages_vma
+{
+	@vma[comm] = hist(((struct vm_area_struct*)arg2)->vm_start);
+}
+
+END
+{
+	printf("finish trace \n");
+}
+
