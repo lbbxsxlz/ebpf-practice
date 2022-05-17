@@ -2,6 +2,7 @@
 # sudo python3 hello_kprobe.py
 
 from bcc import BPF
+from bcc.utils import printb
 
 # define BPF program
 prog = """
@@ -26,4 +27,5 @@ while 1:
         continue
     except KeyboardInterrupt:
         exit()
-    print("%-18.9f %-16s %-6d %s" % (ts, task, pid, msg))
+    #print("%-18.9f %-16s %-6d %s" % (ts, task, pid, msg))
+    printb(b"%-18.9f %-16s %-6d %s" % (ts, task, pid, msg))
