@@ -1,9 +1,11 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <bpf/bpf.h>
-#include <bpf/libbpf.h>
 #include "perf-sys.h"
+#include "bpf_load.h"
 
 #include <assert.h>
 #include <fcntl.h>
@@ -15,8 +17,6 @@
 #include <sys/types.h>
 
 #define SAMPLE_PERIOD 0x7fffffffffffffffULL
-
-static int map_fd[1];
 
 static int pmufd_cyl[32];
 
@@ -31,9 +31,7 @@ static void register_perf(int cpu, struct perf_event_attr *attr) {
 }
 
 int main(int argc, char **argv) {
-    struct bpf_link *links[1];
-    struct bpf_program *prog;
-    struct bpf_object *obj;
+    //struct bpf_object *obj;
     char filename[256];
     int i, nr_cpus = sysconf(_SC_NPROCESSORS_ONLN);
 
@@ -48,6 +46,7 @@ int main(int argc, char **argv) {
     };
 
     snprintf(filename, sizeof(filename), "%s_kern.o", argv[0]);
+/*    
     obj = bpf_object__open_file(filename, NULL);
     if (libbpf_get_error(obj)) {
         fprintf(stderr, "ERROR: opending BPF object file failed\n");
@@ -58,7 +57,13 @@ int main(int argc, char **argv) {
         fprintf(stderr, "ERROR: loading BPF object failed\n");
         return -1;
     }
-
+*/  
+    if (load_bpf_file(filename))
+    {
+        printf("error %s", bpf_log_buf);
+        return 1;
+    }
+/*
     map_fd[0] = bpf_object__find_map_fd_by_name(obj, "pmu_cyl");
 
     if (map_fd[0] < 0) {
@@ -75,7 +80,7 @@ int main(int argc, char **argv) {
         }
         i++;
     }
-
+*/
     for (i = 0; i < nr_cpus; i++) {
         register_perf(i, &attr_cycles);
     }
